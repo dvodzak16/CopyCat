@@ -1,6 +1,6 @@
 #include <MeggyJrSimple.h>    // Required code, line 1 of 2.
 
-int x = 0;
+boolean alive = true;
 
  void setup()                    // run once, when the sketch starts
  {
@@ -95,16 +95,15 @@ void lightUpButton()
 
 void lightDownButton()
   {
+  
   DrawPx(1,4,DimBlue);
   DrawPx(3,4,DimBlue);
   DrawPx(2,3,Red);
   DrawPx(5,4,DimBlue);
   DrawPx(6,4,DimBlue);
   DrawPx(2,5,DimBlue);
-  
-  
-    DisplaySlate();
-    delay(200);
+  DisplaySlate();
+ 
   }
   
 //----------------------------------
@@ -112,11 +111,9 @@ void lightDownButton()
 void aButton()
   {
     CheckButtonsDown();
-   
     if(Button_A){
     DrawPx(6,4,FullOn);
     DisplaySlate();
-    
   }
   }
 
@@ -170,32 +167,24 @@ void loop()
 {
   CheckButtonsPress();
   ButtonsNeutral();
-  delay(2000);
-  lightDownButton();
-  if(Button_Down)
-  {
-    Tone_Start(ToneG6, 500);
-    Tone_Update();
-    ClearSlate();
-    ButtonsNeutral();
-    DisplaySlate();
+ 
+  if(Button_Down){
+    while(lightDownButton)
+    {
+     ClearSlate();
+     ButtonsNeutral();
+     DisplaySlate();
+    }
   }
-  else
-  {
-    delay(5000);
+  else{
+    delay(2000);
     ClearSlate();
     deathScreen();
   }
   
-  aButton();
-  bButton();
-  upButton();
-  downButton();
-  leftButton();
-  rightButton();
   DisplaySlate();
+  }
   
   
   
-  
-}
+
